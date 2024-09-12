@@ -84,9 +84,9 @@ io.on('connection', (socket) => {
     })
 
     //todo 
-    socket.on("new-event", (newInfo) => {
-        players["123"][socket.id] = newInfo.x
-        io.to("123").emit('update-client', players["123"])
+    socket.on("killed", (room) => {
+        players[room][socket.id].isAlive = false
+        io.to(room).emit('update-client', players[room])
     })
 
     // socket.on('join-room', (room, coords, cb) => {

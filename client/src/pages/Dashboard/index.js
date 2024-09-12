@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import './styles.css'
+import './styles.css';
+import { Zoom, Flip } from 'react-reveal';
 
 //* Components
 import { CreateGame } from '../../components';
@@ -50,7 +51,7 @@ export default function Dashboard() {
     //! DEVELOPMENT ONLY
 
     return (
-        <div id='dashboardContainer'>
+        <Zoom><div id='dashboardContainer' className='loginContainer nes-container is-centered'>
             <div id='dash1cont' style={{float:"left"}}>
                 <h1 id='h1dashboard'>Player Icon</h1>
                 <h1>Username</h1>
@@ -58,7 +59,7 @@ export default function Dashboard() {
             </div>
             <div id='dash2cont' style={{float:"right"}}>
             <form onSubmit={handleJoinRoom}>
-                <input
+                <input id='roominput'
                     required
                     type="text"
                     placeholder='Room ID' 
@@ -66,11 +67,11 @@ export default function Dashboard() {
                     onChange={(e) => setRoomID(e.target.value) } 
                 />
                 <br />
-                <input type="submit" value="Join Game" />
+                <Flip><input className='nes-btn is-success' type="submit" value="Join Game" /></Flip>
             </form>
-            <button onClick={() => setCreateGameModel(true)}>Create A Game</button>
+            <Flip><button className="nes-btn is-primary" onClick={() => setCreateGameModel(true)}>Create Game</button></Flip>
             </div>
             { createGameModel? <CreateGame  setCreateGameModel={setCreateGameModel}/> : null }
-        </div>
+        </div></Zoom>
     )
 }

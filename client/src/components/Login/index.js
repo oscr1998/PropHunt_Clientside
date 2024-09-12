@@ -1,9 +1,11 @@
 import { React, useState } from 'react'
 import './style.css'
+import Flip from 'react-reveal/Flip'
 //* Socket
 import { store_socket } from '../../actions/socket/socketSlice'
 import io from 'socket.io-client';
 const serverEP = "https://localhost:3030/";
+
 
 export default function Login() {
 
@@ -26,7 +28,8 @@ export default function Login() {
     return (
         <form onSubmit={handelLogin} className="nes-field">
             <h1>Login</h1>
-            <label>Username:
+            <br />
+    
                 <input 
                     required
                     type="text" 
@@ -35,10 +38,8 @@ export default function Login() {
                     onChange={(e) => { setLoginInfo({...loginInfo, username: e.target.value }) }}
                     className = "nes-input usrNm"
                 />
-                <br />
-            </label>
 
-            <label>Password:
+            
                 <input 
                     required
                     type="text" 
@@ -48,9 +49,8 @@ export default function Login() {
                     className = "nes-input usrNm"
                 />
                 <br />
-            </label>
 
-            <input id='loginbtn' type="submit" value="Login" className='nes-btn is-success'/>
+            <Flip><input id='loginbtn' type="submit" value="Login" className='nes-btn is-success'/></Flip>
         </form>
     )
 }

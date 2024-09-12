@@ -26,8 +26,8 @@ export default function CreateGame({setCreateGameModel={setCreateGameModel}}) {
     
     return (
         <form onSubmit={handelCreateGame}>
-            <h1>Create Game</h1>
-            <div>
+            <div className='loginContainer nes-container is-centered'>
+                <h1>Create Game</h1>
                 <button 
                     onClick={() => {
                         setCreateGameModel(false)

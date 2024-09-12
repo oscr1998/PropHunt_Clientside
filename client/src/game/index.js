@@ -1,4 +1,9 @@
 import Phaser from 'phaser';
+
+// import { useSelector, useDispatch } from "react-redux";
+// const socket = useSelector(state => state.socket.socket)
+import ghost from '../components/images/ghost.png'
+
 import TilesetFloor from './assets/level/TilesetFloor.png'
 import TilesetWater from './assets/level/TilesetWater.png'
 import TilesetFloorDetail from './assets/level/TilesetFloorDetail.png'
@@ -6,6 +11,7 @@ import TilesetNature from './assets/level/TilesetNature.png'
 import TilesetHouse from './assets/level/TilesetHouse.png'
 import TilesetReliefDetail from './assets/level/TilesetReliefDetail.png'
 import jsonMap from './assets/level/level_map.json'
+
 
 
 import { socket, room } from '../pages/Dashboard/index'
@@ -18,7 +24,7 @@ const players = {
 
 let seeker = [];
 let hider = [];
-
+let listOfPlayers;
 const gameState = {
     cursors: "",
 }
@@ -38,6 +44,9 @@ class GameScene extends Phaser.Scene {
         // Assets
         this.load.image('codey', 'https://content.codecademy.com/courses/learn-phaser/physics/codey.png');
         this.load.image('bug', 'https://content.codecademy.com/courses/learn-phaser/physics/bug_1.png');
+
+        this.load.image('ghost', ghost)
+
         this.load.spritesheet('characters', TilesetNature, { frameWidth: 32, frameHeight: 32 } )
 
         //************background layer*********** //
@@ -46,6 +55,7 @@ class GameScene extends Phaser.Scene {
 
         //************decoration layer*********** //
         // this.load.image('floor', TilesetFloorDetail)
+
 
         //************blocked layer*********** //
         this.load.image('nature', TilesetNature)
@@ -65,13 +75,16 @@ class GameScene extends Phaser.Scene {
                     console.log("init");
                     // copy the list
                     players[id] = players_server[id]
-                } else if (id !== socket.id) {
-                    console.log("moving");
+
+                } else if (id !== socket.id){
+                    // console.log("player_Server", players_server[id]);
                     // update player coords
                     players[id].sprite.x = players_server[id].x
                     players[id].sprite.y = players_server[id].y
-                } else if (id !== socket.id) {
+                    players[id].isAlive = players_server[id].isAlive
+                } else if (id !== socket.id){
                     // update whatever you want
+                    
                 }
             })
         })
@@ -80,9 +93,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        console.log("is map being created?")
         this.createMap();
-        console.log("is map being created?")
         const listOfPlayers = Object.keys(players) //["id1", "id2"]
 
         listOfPlayers.forEach(id => {
@@ -99,6 +110,15 @@ class GameScene extends Phaser.Scene {
             players[id].sprite.body.immovable = true
             this.physics.add.collider(this.blockedLayer, players[id].sprite)
         })
+
+
+        listOfPlayers.forEach(id => {
+            if(!players[id].character === "seeker" ){
+                players[id] = { ...players[id], isAlive: true }
+            } 
+        })
+
+
         this.cameras.main.startFollow(players[socket.id].sprite);
         // listOfPlayers.forEach(id => {
         //     if(players[id].character === "seeker" ){
@@ -107,6 +127,7 @@ class GameScene extends Phaser.Scene {
         //         hider.push(players[id])
         //     }
         // })
+
         const listOfHiders = Object.values(players).filter(p => p.character !== "seeker")
         const listOfSeekers = Object.values(players).filter(p => p.character !== "hider")
         console.log("listOfHiders", listOfHiders)
@@ -115,15 +136,13 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(listOfSeekers[0].sprite, id.sprite, function () {
                 console.log("Collision detected")
                 this.physics.add.collider(this.blockedLayer, players[id])
-                // id.sprite.destroy()
+                id.isAlive = false
             })
         })
 
-
-        console.log("hider", hider)
-        console.log("seeker", seeker)
-
         
+        // console.log("hider", hider)
+        // console.log("seeker", seeker)
 
         // Debugging
         this.debug("create")
@@ -143,7 +162,18 @@ class GameScene extends Phaser.Scene {
             }, room)
         }
 
+        if(players[socket.id].isAlive === false){
+            console.log("you are dead")
+            socket.emit('killed',room)
+        }
 
+        listOfPlayers.forEach(id => {
+            if(players[id].isAlive === false ){
+                players[id].sprite.setTexture('ghost').setScale(0.1).setOrigin(0.5)
+            } 
+        })
+        
+        
         // console.log("character", players[socket.id].character)
 
         // if( players[socket.id].character === "seeker"){

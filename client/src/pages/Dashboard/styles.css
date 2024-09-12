@@ -9,10 +9,14 @@
     padding-bottom: 25px;
 }
 
-#dash2cont {
-    
+#roominput {
+    margin-bottom: 7.5%;
 }
 
 #h1dashboard {
     margin: 0;
 }
+
+/* .nes-btn.is-success {
+    width: 200px
+} */

@@ -1,16 +1,12 @@
-form {
-    margin-bottom: 7.5px;
-}
-
 .usrNm{
     background-color: white;
     border: solid black 3px;
 }
 
 .nes-btn.is-success {
-    width: 150px;
+    margin-bottom: 2%;
 }
 
 .nes-btn.is-primary {
-    margin-bottom: 12.5px;
+    margin-bottom: 2.5%;
 }
