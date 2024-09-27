@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import socketReducer from '../actions/socket/socketSlice'
+import flaskReducer from '../actions/flask/flaskSlice'
 
 export default configureStore({
     reducer: {
         socket: socketReducer,
+        flask: flaskReducer,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

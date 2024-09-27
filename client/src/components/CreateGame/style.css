@@ -14,10 +14,14 @@
     background-color: transparent;
 }
 
-.nes-select {
-    width: 130%;
-}
-#formlabel1 {
+#gamemodelabel, #maplabel {
     display: flex;
-    width: 130%;
+    width: 100%;
+    margin-bottom: 10%;
+}
+
+.createroomsize {
+    background: transparent;
+    border: none;
+    color: whitesmoke;
 }

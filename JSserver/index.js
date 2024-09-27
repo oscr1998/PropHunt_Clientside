@@ -13,12 +13,12 @@ const io = require('socket.io')(http, {
 const players = {
     //* Schema
     // room1: {
-    //     id1: { id: "", username: "", character: "", x: 0, y: 0 },
-    //     id2: { id: "", username: "", character: "", x: 0, y: 0 },
+    //     id1: { id: "", username: "", character: "", x: 0, y: 0, .propIndices : [0, 1] },
+    //     id2: { id: "", username: "", character: "", x: 0, y: 0, .propIndices : [0, 1] },
     // },
     // room2: {
-    //     id1: { id: "", username: "", character: "", x: 0, y: 0 },
-    //     id2: { id: "", username: "", character: "", x: 0, y: 0 },
+    //     id1: { id: "", username: "", character: "", x: 0, y: 0, .propIndices : [0, 1] },
+    //     id2: { id: "", username: "", character: "", x: 0, y: 0, .propIndices : [0, 1] },
     // },
 }
 
@@ -29,7 +29,7 @@ io.on('connection', (socket) => {
         socket.join(room)
         console.log(`player ${socket.id} joined room ${room}`);
         cb({ id: socket.id, room: room })
-        if (!players[room]){
+        if (!players[room]) {
             players[room] = {}
         }
         players[room][socket.id] = {
@@ -39,8 +39,8 @@ io.on('connection', (socket) => {
         io.to(room).emit('update-room', players[room])
     })
 
-    socket.on('start-game', (room) =>{
-
+    socket.on('start-game', (room) => {
+        //
         // Algorithm to decide who is the seeker
         const listOfPlayers = Object.keys(players[room])    //["id1", "id2"]
         const seekerIdx = Math.floor(Math.random() * listOfPlayers.length)
@@ -48,19 +48,38 @@ io.on('connection', (socket) => {
 
         //Algorithm to decide each players' spawn location
         const coords = [
-            {x: 10, y:10 },
-            {x: 100, y:100 },
-            {x: 200, y:200 },
+            { x: 300, y: 300 },
+            { x: 400, y: 400 },
+            { x: 500, y: 500 },
         ]
-
+        
         listOfPlayers.forEach((id, idx) => {
-            if (id === seekerID){
-                players[room][id] = { ...players[room][id], character: "seeker", x: coords[idx].x, y: coords[idx].y }
+            if (id === seekerID) {
+                players[room][id] = {
+                    ...players[room][id],
+                    character: "seeker",
+                    velocity: 500,
+                    isAlive: true,
+                    x: 300,
+                    y: 2000,
+                    propIndices: null
+                }
+
             } else {
-                players[room][id] = { ...players[room][id], character: "hider", x: coords[idx].x, y: coords[idx].y }
+                players[room][id] = {
+                    ...players[room][id],
+                    character: "hider",
+                    velocity: 350,
+                    isAlive: true,
+                    x: coords[idx].x,
+                    y: coords[idx].y,
+                    propIndices: null
+                }
             }
         })
+        //Ignore
         io.to(room).emit('update-room', players[room])
+        //Ignore
 
         io.to(room).emit('teleport-players')
 
@@ -70,54 +89,32 @@ io.on('connection', (socket) => {
         io.to(room).emit('update-client', players[room])
     })
 
-    // socket.on("update-server", players_Client => {
-    //     Object.keys(players_Client).forEach(id => {
-    //         players["123"][id] = players_Client[id]
-    //     })
-    //     socket.emit('update-client', players["123"])
-    // })
-
     socket.on("moved", (coords, room) => {
         players[room][socket.id].x = coords.x
         players[room][socket.id].y = coords.y
         io.to(room).emit('update-client', players[room])
     })
 
+    socket.on("endGame", (room, results) => {
+        io.to(room).emit('results', results)
+    })
+    
     //todo 
-    socket.on("new-event", (newInfo) => {
-        players["123"][socket.id] = newInfo.x
-        io.to("123").emit('update-client', players["123"])
+    socket.on("killed", (room, H_id) => {
+        players[room][H_id].isAlive = false
+        players[room][H_id].propIndices = null
+        io.to(room).emit('update-client', players[room])
     })
 
-    // socket.on('join-room', (room, coords, cb) => {
-    //     socket.join(room)
-
-    //     const playersID = Array.from(io.of("/").adapter.rooms.get(room));
-
-    //     cb({ id: socket.id, room: room })
-
-    //     io.to(room).emit('update-room', playersID, socket.id, coords)
-    // })
-
-    // socket.on('moving', (room, coords) => {
-    //     const playersID = Array.from(io.of("/").adapter.rooms.get(room));
-    //     io.to(room).emit('update-room', playersID, socket.id, coords)
-    // })
-
-    // socket.on('disconnecting', () => {
-    //     Array.from(socket.rooms).forEach(
-    //         room => {
-    //             let playersID = Array.from(io.of("/").adapter.rooms.get(room)).filter(p => p !== socket.id)
-    //             io.to(room).emit('update-room', playersID, socket.id, null)
-    //         }
-    //     )
-    // })
-
+    socket.on("changedProp", (room, randomSize, randomId ) => {
+        players[room][socket.id].propIndices = [randomSize, randomId]
+        io.to(room).emit('update-client', players[room])
+    })
 
     socket.on('disconnecting', () => {
         Array.from(socket.rooms).forEach(
             room => {
-                if (room !== socket.id){
+                if (room !== socket.id) {
                     delete players[room][socket.id]
                     io.to(room).emit('update-room', players[room])
                     console.log(`player ${socket.id} left room ${room}`);

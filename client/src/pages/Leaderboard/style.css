@@ -1,0 +1,28 @@
+.leaderboardh1 {
+	margin-bottom: 2%;
+}
+
+leaderboard td {
+	background-color: whitesmoke;
+	text-decoration: none;
+	list-style: none;
+	padding: 18px 30px 18px 50px;
+}
+
+.leaderboard tr {
+	font-size: 25px;
+	text-align: center;
+	padding: 10px;
+}
+
+.leaderboard th {
+	font-size: 25px;
+	text-align: center;
+	padding: 15px;
+	border: 3px black solid;
+}
+
+table {
+	background-color: whitesmoke;
+	border: 3px black solid;
+}

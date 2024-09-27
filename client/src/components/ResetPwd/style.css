@@ -1,0 +1,25 @@
+#reseth1 {
+    color: aliceblue;
+}
+
+#resetpwdForm {
+    width: clamp(50%, 700px, 90%);
+    height: min(50%, 300px);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.rpwdinput {
+    width: 100%;
+    margin-top: 10%;
+    padding: 2%;
+}
+
+.rpwdsubmit {
+    margin-top: 10%;
+    width: none;
+    padding: 5px 7px;
+}

@@ -1,4 +1,3 @@
-
 html, body, pre, code, kbd, samp {
     font-family: 'Press Start 2P', cursive;
 }
@@ -11,6 +10,176 @@ body{
     min-height: 100vh;
 }
 
-.nes-btn {
-    width: 70%
+button, input {
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	/* width: 70% */
 }
+
+.closebtn {
+	display: flex;
+	align-self:flex-end
+}
+
+/* input {
+	width: 70%;
+} */
+
+/* html, body {
+	margin:0;
+	height:100%;
+} */
+/* .backgroundContainer{
+	display: block;
+	position: absolute;
+	object-fit: fill;
+	width:100%;
+	height:100%;
+	background:url(./components/images/spin.jpg) no-repeat 0 0;
+	animation:spin 20s linear infinite;
+	z-index: -1;
+}
+
+.backgroundImage{
+	width: 300%;
+	height: 300%;
+}
+
+@keyframes spin{
+	from{transform:rotate(0deg)}
+	to{transform:rotate(360deg)}	
+} */
+
+/* ############################# Animated Pokeballs ########################## */
+/* .circlesContainer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+.circles {
+	position: absolute;
+	display: block;
+	list-style: none;
+	width: 20px;
+	height: 20px;
+	animation: animate 5s linear infinite;
+	top: 0px;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+
+.circles:nth-child(1) {
+	left: 25%;
+	width: 80px;
+	height: 80px;
+	animation-delay: 0s;
+	animation-duration: 9s;
+	border-radius: 50%;
+}
+
+.circles:nth-child(2) {
+	left: 10%;
+	width: 20px;
+	height: 20px;
+	animation-delay: 0s;
+	animation-duration: 5s;
+	border-radius: 50%;
+}
+
+.circles:nth-child(3) {
+	left: 70%;
+	width: 20px;
+	height: 20px;
+	animation-delay: 0s;
+	animation-duration: 2s;
+	border-radius: 50%;
+}
+
+.circles:nth-child(4) {
+	left: 40%;
+	width: 60px;
+	height: 60px;
+	animation-delay: 0s;
+	animation-duration: 8s;
+	border-radius: 50%;
+}
+
+.circles:nth-child(5) {
+	left: 65%;
+	width: 20px;
+	height: 20px;
+	animation-delay: 0s;
+	animation-duration: 4s;
+	border-radius: 50%;
+}
+
+.circles:nth-child(6) {
+	left: 75%;
+	width: 90px;
+	height: 90px;
+	animation-delay: 0s;
+	animation-duration: 5s;
+	border-radius: 50%;
+}
+
+.circles:nth-child(7) {
+	left: 35%;
+	width: 50px;
+	height: 50px;
+	animation-delay: 0s;
+	animation-duration: 3s;
+	border-radius: 50%;
+	border-top-left-radius: 0 !important;
+}
+
+.circles:nth-child(8) {
+	left: 50%;
+	width: 25px;
+	height: 25px;
+	animation-delay: 0s;
+	animation-duration: 5s;
+	border-radius: 50%;
+	border-top-left-radius: 0 !important;
+}
+
+.circles:nth-child(9) {
+	left: 20%;
+	width: 15px;
+	height: 15px;
+	animation-delay: 0s;
+	animation-duration: 4s;
+	border-radius: 50%;
+}
+
+.circles:nth-child(10) {
+	left: 85%;
+	width: 50px;
+	height: 50px;
+	animation-delay: 0s;
+	animation-duration: 5s;
+	border-radius: 50%;
+}
+
+
+@keyframes animate {
+	0% {
+		transform: translateY(0) rotate(0deg);
+		opacity: 1;
+	}
+	50% {
+		transform: translateY(60vh) rotate(360deg);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(120vh) rotate(720deg);
+		opacity: 1;
+	}
+} */

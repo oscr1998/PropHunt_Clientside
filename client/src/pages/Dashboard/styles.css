@@ -6,6 +6,9 @@
 
 #dash1cont {
     padding-bottom: 25px;
+    display:flex;
+    justify-content: space-between;
+    margin-top: 5%;
 }
 
 #roominput {
@@ -14,8 +17,24 @@
 
 #h1dashboard {
     margin: 0;
+    border: 2px #000000 solid;
 }
 
-/* .nes-btn.is-success {
-    width: 200px
-} */
+#dashpart1 {
+    width: 50%;
+    flex: 0;
+}
+
+#dashpart2 {
+    margin-left: 3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    flex: 1;
+}
+
+.joingamebtn {
+    width: 61%;
+}
+

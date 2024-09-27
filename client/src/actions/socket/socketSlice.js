@@ -3,6 +3,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 export const socketSlice = createSlice({
     name: 'socket',
     initialState: {
+        URI: "https://localhost:3030/",
         socket: null,
         roomID: "",
         players: {

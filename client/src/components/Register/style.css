@@ -9,5 +9,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: white;
 }
+
+.registersubmitbtn {
+    margin-top: 10%;
+    width: none;
+    padding: 5px 7px;
+}
+
+.registerinputs {
+    width: 100%;
+    margin-top: 5%;
+    padding: 2px 6.5px;
+}
+
+

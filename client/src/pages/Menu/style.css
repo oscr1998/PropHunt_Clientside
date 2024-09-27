@@ -6,9 +6,48 @@
 }
 
 .loginContainer{
+    min-width: 20vw;
+    min-height: 20vw;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     margin: auto;
+}
+
+.leaderboardbtn {
+    background-color: rgb(106,89,61);
+    color: whitesmoke;
+    width: max-content;
+}
+
+.pwdcontainer {
+    font-size: 70%;
+    margin-top: 5%; 
+}
+
+.pwdlink {
+    padding: 15px;
+}
+
+.regbtn {
+    width: 67%;
+}
+
+.nes-btn::after {
+    box-shadow: none;
+}
+
+#h1menu {
+    /* font-size: 10vw; */
+    font-style: italic;
+    /* opacity: 90%;  */
+    text-align: center;
+    font-size: 8rem;
+    padding: 30px;
+    /* color: #1D9099; */
+    color: #222222;
+    /* text-shadow: 5px 5px #E79C10, 10px 10px #D53A33; */
+    text-shadow: 5px 5px #6AB9A3, 10px 10px #D04E3E;
+    letter-spacing: 10px;
 }
